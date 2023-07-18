@@ -1,6 +1,8 @@
 Box + Python collaboration sample
 ===
 
+🐍 ☁️ Python 3.10 + Box + OAuth 2.0 Demonstration!
+
 ## Demo
 
 ```bash
