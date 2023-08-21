@@ -3,11 +3,13 @@ Box + Python collaboration sample
 
 🐍 ☁️ Python 3.10 + Box + OAuth 2.0 Demonstration!
 
-## Demo
+## OAuth2 のほう
+
+### Demo
 
 ```bash
 # こうやって実行すると……
-$ pipenv run python foo.py
+$ pipenv run python oauth2_sample.py
 
 # Box のここへアクセスしてくださいと言われるので、ブラウザでアクセスすると……
 Go to this url on your browser: https://account.box.com/api/oauth2/authorize?state=...
@@ -33,11 +35,11 @@ File "box-2023-07-18T18_12_55Z.png" has been uploaded to Box with file ID: 12615
 
 ![](./docs/file-uploaded.png)
 
-## まあ Box 側でアプリケーションを作らないといけないけどね
+### まあ Box 側でアプリケーションを作らないといけないけどね
 
-1. ここ↓でアプリケーションを作る
+1. ここ↓でアプリケーションを作っていく
     - https://app.box.com/developers/console/newapp
-2. Custom App
+2. Custom App (OAuth 2.0 User Authentication)
     - Purpose: Integration
     - 多分このへん↑はアンケなので適当でいい
     - OAuth 2.0 User Authentication を選ぶ
@@ -47,9 +49,23 @@ File "box-2023-07-18T18_12_55Z.png" has been uploaded to Box with file ID: 12615
     - Application Scopes
         - ここがアプリケーションの権限スコープだね。今回はファイルをアップロードしたいので "write all files ..." にチェックしとくか。
 
-## このプログラムに追加できるとすれば
+### このプログラムに追加できるとすれば
 
 - 毎回認証ページに飛ばすんじゃなくて、 `refresh_token` を使って認証をスキップするようにする
 - アップロード先のフォルダを指定できるようにする
 
 とかかな。
+
+## JWT のほう
+
+### Demo
+
+### まあ Box 側でアプリケーションを作らないといけないけどね
+
+1. ここ↓でアプリケーションを作っていく
+    - https://app.box.com/developers/console/newapp
+2. Custom App (Server Authentication with JWT)
+3. Custom App の設定をする
+    - Application Scopes 追加
+    - Add and Manage Public Keys で Generate a Public/Private Keypair
+    - CORS Domains (たぶんコレがいる?)
