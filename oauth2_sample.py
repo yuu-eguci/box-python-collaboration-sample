@@ -14,8 +14,8 @@ def store_tokens(access_token, refresh_token):
 
 # OAuth2認証オブジェクトの生成
 oauth = OAuth2(
-    client_id='ここに Client ID',
-    client_secret='ここに Client Secret',
+    client_id='...',
+    client_secret='...',
     store_tokens=store_tokens
 )
 
@@ -32,6 +32,14 @@ access_token, refresh_token = oauth.authenticate(auth_code)
 
 # Boxクライアントの生成
 client = Client(oauth)
+
+# ルートフォルダを取得
+root_folder = client.folder(folder_id='0').get()
+
+# ルートフォルダのアイテム一覧を取得して表示
+items = root_folder.get_items()
+for item in items:
+    print(f'{item.type.capitalize()} - {item.name}')
 
 # ファイルのアップロード
 file_path = './box.png'
