@@ -3,6 +3,16 @@ Box + Python collaboration sample
 
 🐍 ☁️ Python 3.10 + Box + OAuth 2.0 Demonstration!
 
+## .env が必要
+
+```
+DEVELOPER_TOKEN = '...'
+CLIENT_ID = '...'
+CLIENT_SECRET = '...'
+ENTERPRISE_ID = '...'
+SETTINGS_FILE_SYS_PATH = '...'
+```
+
 ## OAuth2 のほう
 
 ### Demo
