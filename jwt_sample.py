@@ -36,7 +36,7 @@ print(f'Service Account user is {service_account}')
 # ルートフォルダと、その中身。
 root_folder: Folder = client.root_folder().get()
 # NOTE: Folder の親クラスである Item には、name を持つ。
-print(f'Root folder: {root_folder.name}')  # type: ignore[attr-defined]
+print(f'Root folder: {root_folder.name}')  # type: ignore # boxsdk 側の型定義不足のせい。
 print(f'Root folder items: {list(root_folder.get_items())}')
 
 # フォルダパスを指定して、その中身。
