@@ -1,5 +1,6 @@
 import os
 from collections.abc import Iterable
+from datetime import datetime, timedelta, timezone
 from boxsdk import OAuth2, JWTAuth, Client
 from boxsdk.object.folder import Folder
 from boxsdk.object.item import Item
@@ -105,6 +106,21 @@ else:
 
 
 # 4. ID 指定したフォルダの中に、名前を指定してファイルをアップロード
+def upload_file_to_box(folder_id: str, file_path: str, file_name: str) -> Item:
+    new_file = client.folder(folder_id).upload(file_path, file_name)
+    return new_file
+
+
+JST = timezone(timedelta(hours=+9), 'JST')
+current_jst: str = datetime.now(tz=JST).strftime('%Y%m%d_%H%M%S')
+if subfolder:
+    new_file: Item = upload_file_to_box(subfolder.id,  # type: ignore # boxsdk 側の型定義不足のせい。
+                                        './box.png', f'box_logo_{current_jst}.png')
+    print(f'New file: {new_file}')
+else:
+    print('Subfolder not found.')
+
+
 # 5. ID 指定したファイルの URL を取得
 # 6. ID 指定したファイルのメタデータを登録
 # 7. ID 指定したファイルのメタデータを更新
