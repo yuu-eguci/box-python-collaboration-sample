@@ -75,7 +75,10 @@ File "box-2023-07-18T18_12_55Z.png" has been uploaded to Box with file ID: 12615
 1. ここ↓でアプリケーションを作っていく
     - https://app.box.com/developers/console/newapp
 2. Custom App (Server Authentication with JWT)
-3. Custom App の設定をする
+3. アカウントの 2-Step Verification を設定する (Public/Private Keypair を作るために必要)
+4. Custom App の設定をする
     - Application Scopes 追加
     - Add and Manage Public Keys で Generate a Public/Private Keypair
     - CORS Domains (たぶんコレがいる?)
+5. Authorization タブで Review and Submit する
+6. Admin Console でアプリケーションを承認する
