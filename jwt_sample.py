@@ -1,4 +1,5 @@
 import os
+from collections.abc import Iterable
 from boxsdk import OAuth2, JWTAuth, Client
 from boxsdk.object.folder import Folder
 from boxsdk.object.item import Item
@@ -73,13 +74,36 @@ def get_box_folder_by_id(folder_id: str) -> list[Item]:
 
 
 if target_folder:
-    target_folder_items = get_box_folder_by_id(target_folder.id)  # type: ignore # boxsdk 側の型定義不足のせい。
+    target_folder_items: list[Item] = get_box_folder_by_id(target_folder.id)  # type: ignore # boxsdk 側の型定義不足のせい。
     print(f'Target folder items: {target_folder_items}')
 else:
     print('Target folder not found.')
 
 
-# 3. ID 指定したフォルダの中にフォルダを作る
+# 3. ID 指定したフォルダの中にサブフォルダを作る
+def create_box_subfolder(folder_id: str, subfolder_name: str) -> Folder:
+    subfolder = client.folder(folder_id).create_subfolder(subfolder_name)
+    return subfolder
+
+
+def is_box_folder(item: Item) -> bool:
+    return type(item) == Folder
+
+
+subfolder: Folder | None = None
+if target_folder:
+    target_folder_subfolders: Iterable[Folder] = filter(is_box_folder, target_folder_items)  # type: ignore # ちょっとよくわからん
+    for target_folder_item in target_folder_subfolders:
+        if target_folder_item.name == 'サブフォルダ':  # type: ignore # boxsdk 側の型定義不足のせい。
+            subfolder = target_folder_item
+            break
+    if subfolder is None:
+        subfolder = create_box_subfolder(target_folder.id, 'サブフォルダ')  # type: ignore # boxsdk 側の型定義不足のせい。
+    print(f'Subfolder: {subfolder}')
+else:
+    print('Target folder not found.')
+
+
 # 4. ID 指定したフォルダの中に、名前を指定してファイルをアップロード
 # 5. ID 指定したファイルの URL を取得
 # 6. ID 指定したファイルのメタデータを登録
