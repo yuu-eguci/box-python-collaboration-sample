@@ -111,6 +111,7 @@ def upload_file_to_box(folder_id: str, file_path: str, file_name: str) -> Item:
     return new_file
 
 
+new_file: Item | None = None
 JST = timezone(timedelta(hours=+9), 'JST')
 current_jst: str = datetime.now(tz=JST).strftime('%Y%m%d_%H%M%S')
 if subfolder:
@@ -122,6 +123,16 @@ else:
 
 
 # 5. ID 指定したファイルの URL を取得
+def get_box_file_url(file_id: str) -> str:
+    return f'https://yuu-eguci.box.com/file/{file_id}'
+
+
+if new_file:
+    new_file_url = get_box_file_url(new_file.id)  # type: ignore # boxsdk 側の型定義不足のせい。
+    print(f'New file URL: {new_file_url}')
+else:
+    print('New file not found.')
+
 # 6. ID 指定したファイルのメタデータを登録
 # 7. ID 指定したファイルのメタデータを更新
 
