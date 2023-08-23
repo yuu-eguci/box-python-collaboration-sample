@@ -1,6 +1,7 @@
 import os
 from boxsdk import OAuth2, JWTAuth, Client
 from boxsdk.object.folder import Folder
+from boxsdk.object.item import Item
 from boxsdk.object.user import User
 
 DEVELOPER_TOKEN: str = os.environ['DEVELOPER_TOKEN']
@@ -64,7 +65,19 @@ target_folder: Folder | None = get_box_folder_by_path([
 ])
 print(f'Target folder: {target_folder}')
 
+
 # 2. ID 指定したフォルダの中身を見る
+def get_box_folder_by_id(folder_id: str) -> list[Item]:
+    items = client.folder(folder_id=folder_id).get_items()
+    return list(items)
+
+
+if target_folder:
+    target_folder_items = get_box_folder_by_id(target_folder.id)  # type: ignore # boxsdk 側の型定義不足のせい。
+    print(f'Target folder items: {target_folder_items}')
+else:
+    print('Target folder not found.')
+
 
 # 3. ID 指定したフォルダの中にフォルダを作る
 # 4. ID 指定したフォルダの中に、名前を指定してファイルをアップロード
