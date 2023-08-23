@@ -5,12 +5,14 @@ from boxsdk import OAuth2, JWTAuth, Client
 from boxsdk.object.folder import Folder
 from boxsdk.object.item import Item
 from boxsdk.object.user import User
+from boxsdk.object.metadata_template import MetadataTemplate
 
 DEVELOPER_TOKEN: str = os.environ['DEVELOPER_TOKEN']
 CLIENT_ID: str = os.environ['CLIENT_ID']
 CLIENT_SECRET: str = os.environ['CLIENT_SECRET']
 ENTERPRISE_ID: str = os.environ['ENTERPRISE_ID']
 SETTINGS_FILE_SYS_PATH: str = os.environ['SETTINGS_FILE_SYS_PATH']
+METADATA_TEMPLATE_KEY: str = os.environ['METADATA_TEMPLATE_KEY']
 
 
 def store_tokens_callback(access_token: str, refresh_token: str) -> None:
@@ -133,7 +135,35 @@ if new_file:
 else:
     print('New file not found.')
 
-# 6. ID 指定したファイルのメタデータを登録
-# 7. ID 指定したファイルのメタデータを更新
 
-# フォルダパスを指定して、その中身。
+# 6.0. メタデータのテンプレートを取得
+template: MetadataTemplate = client.metadata_template('enterprise', METADATA_TEMPLATE_KEY).get()
+print(f'The {template.displayName} template has {len(template.fields)} fields')  # type: ignore # boxsdk 側の型定義不足のせい。
+
+
+# 6.1. ID 指定したファイルのメタデータを登録
+JST = timezone(timedelta(hours=+9), 'JST')
+metadata = {
+    'field': datetime(2023, 8, 22, tzinfo=JST).astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+    'field1': '帳票区分の値',
+    'no': '帳票No.の値',
+    'field2': '登録事業者番号の値',
+    'field3': '取引先コードの値',
+    'field4': '取引先名称の値',
+    'field5': 12345.67,
+    'field6': 8.0,
+    'field7': 987.65,
+    'field8': '部署コードの値',
+    'field9': '部署名の値',
+    'field10': datetime(2023, 8, 23, tzinfo=JST).astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+    'field11': '社員番号の値',
+    'url': 'https://example.com'
+}
+if new_file:
+    applied_metadata = new_file.metadata(scope='enterprise', template='template').set(metadata)
+    print(applied_metadata)
+else:
+    print('New file not found.')
+
+# 7. ID 指定したファイルのメタデータを更新
+# いや、更新は不要そう。
