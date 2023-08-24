@@ -139,6 +139,7 @@ else:
 # 6.0. メタデータのテンプレートを取得
 template: MetadataTemplate = client.metadata_template('enterprise', METADATA_TEMPLATE_KEY).get()
 print(f'The {template.displayName} template has {len(template.fields)} fields')  # type: ignore # boxsdk 側の型定義不足のせい。
+print(f'Template fields: {template.fields}')  # type: ignore # boxsdk 側の型定義不足のせい。
 
 
 # 6.1. ID 指定したファイルのメタデータを登録
@@ -151,7 +152,7 @@ metadata = {
     'field3': '取引先コードの値',
     'field4': '取引先名称の値',
     'field5': 12345.67,
-    'field6': 8.0,
+    'field12': '8%',
     'field7': 987.65,
     'field8': '部署コードの値',
     'field9': '部署名の値',
