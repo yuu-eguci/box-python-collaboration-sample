@@ -90,7 +90,7 @@ def create_box_subfolder(folder_id: str, subfolder_name: str) -> Folder:
 
 
 def is_box_folder(item: Item) -> bool:
-    return type(item) == Folder
+    return type(item) is Folder
 
 
 subfolder: Folder | None = None
