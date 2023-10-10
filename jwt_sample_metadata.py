@@ -36,6 +36,7 @@ client: Client = Client(auth)
 
 # メタデータのテンプレートを取得。
 template: MetadataTemplate = client.metadata_template('enterprise', METADATA_TEMPLATE_KEY).get()
+print(template.fields)  # type: ignore # boxsdk 側の型定義不足のせい。
 print(type(template.fields[0]) is not MetadataField)  # type: ignore # boxsdk 側の型定義不足のせい。
 
 
