@@ -1,3 +1,6 @@
+"""
+pipenv install boxsdk[jwt]
+"""
 import os
 from collections.abc import Iterable
 from datetime import datetime, timedelta, timezone
