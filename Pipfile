@@ -10,6 +10,7 @@ boxsdk = {version = "~=10.18", extras = ["jwt"]}
 mypy = "*"
 flake8 = "*"
 pytest = "*"
+pip-audit = "*"
 
 [requires]
 python_version = "3.14"
