@@ -22,6 +22,7 @@ def test_extract_auth_code() -> None:
     'http://localhost/?code=dummy-code',
     'http://localhost/?state=dummy-state',
     'http://localhost/?state=dummy-state&error=access_denied',
+    'http://localhost/?state=%E3%81%82&code=dummy-code',
 ])
 def test_extract_auth_code_rejects(url: str) -> None:
     with pytest.raises(ValueError):

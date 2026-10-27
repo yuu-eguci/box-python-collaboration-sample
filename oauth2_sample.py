@@ -18,7 +18,7 @@ def extract_auth_code(redirected_url: str, expected_state: str) -> str:
     query = parse_qs(urlparse(redirected_url).query)
     if 'error' in query:
         raise ValueError(f'Authorization failed: {query["error"][0]}')
-    if not secrets.compare_digest(query.get('state', [''])[0], expected_state):
+    if not secrets.compare_digest(query.get('state', [''])[0].encode(), expected_state.encode()):
         raise ValueError('state does not match. Paste the whole redirected URL.')
     if 'code' not in query:
         raise ValueError('code not found.')
