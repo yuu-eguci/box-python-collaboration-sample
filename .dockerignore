@@ -1,7 +1,7 @@
 .git
 .github
-.env
-*.json
+**/.env
+**/*.json
 .venv
 **/__pycache__
 .pytest_cache
