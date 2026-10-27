@@ -4,12 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-boxsdk = "*"
+boxsdk = {version = "~=10.18", extras = ["jwt"]}
 
 [dev-packages]
 mypy = "*"
 flake8 = "*"
+pytest = "*"
 
 [requires]
-python_version = "3.10"
-python_full_version = "3.10.12"
+python_version = "3.14"
