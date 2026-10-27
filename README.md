@@ -8,7 +8,7 @@ Python から Box を操作する OAuth 2.0 / JWT のサンプル集です。
 | Python | 3.14 |
 | Box SDK | boxsdk 10 系 (`box_sdk_gen`) |
 | テスト / Lint | pytest, flake8, mypy |
-| CI | GitHub Actions (pytest, flake8, mypy, pip-audit) |
+| CI | GitHub Actions (pytest, flake8, mypy, pip-audit, Docker) |
 
 ## モックでテストする
 
@@ -22,6 +22,17 @@ pipenv run pip-audit
 
 - テストでは Box SDK の client を fake に差し替え、network access も遮断します。本物の Box には接続しません。
 - 本物の Box との接続は未検証です。
+
+## Docker でテストする
+
+Docker でも同じテストを実行できます。`--network none` で network access を遮断した状態でも通ります。
+
+```bash
+docker build -t box-python-collaboration-sample .
+docker run --rm --network none box-python-collaboration-sample
+```
+
+image には `.env` と `*.json` を含めません。
 
 ## 本物の Box で動かす
 
